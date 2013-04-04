@@ -1,20 +1,26 @@
-require.config( {
+require.config({
       paths: {
             'jquerymobile': 'vendor/jquery.mobile-1.3.0',
+            'jstorage' : 'vendor/jstorage',
             'underscore': 'vendor/underscore'
       },
       shim: {
+          jquerymobile : {
+            deps: [
+                'css!../css/jquery.mobile-1.3.0.min.css'
+            ]
+          },
           underscore: {
               exports: '_'
           }
-      } // end Shim Configuration
-} );
+      }
+});
 
 function p(a){
     console.log(a);
 }
 
-require(['jquery', 'underscore', 'jquerymobile', 'vendor/jstorage'], function($, _) {
+require(['jquery', 'underscore', 'jquerymobile', 'jstorage'], function($, _) {
 
     var foodOrder = function(ui, elements){
         this.initUI(ui);
@@ -97,7 +103,7 @@ require(['jquery', 'underscore', 'jquerymobile', 'vendor/jstorage'], function($,
                 total : 0
             };
 
-            if(!this.isReady){
+            if(!this.isReady()){
                 return res;
             }
 
@@ -152,7 +158,7 @@ require(['jquery', 'underscore', 'jquerymobile', 'vendor/jstorage'], function($,
 
         , callReady : function(){
             if(true === this.isReady()){
-                for(key in this.dataReadyFunc){
+                for(var key in this.dataReadyFunc){
                     this.dataReadyFunc[key]();
                 }
             }
