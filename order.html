@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>订餐</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css">
+        <script data-main="js/main" src="js/vendor/require-jquery.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="order-page" data-role="page" data-add-back-btn="true" data-back-btn-text="后退">
+
+            <div data-role="header">
+                <h1>订餐</h1>
+                <a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+            </div><!-- /header -->
+
+            <div data-role="content">
+                <form id="form-order" action="" method="POST">
+                    <label for="order-display-user">人:</label>
+                    <input id="order-display-user" value="" type="text" disabled>
+                    <input name="user" id="order-user" value="" type="hidden">
+                    <a href="#select-user" data-role="button">选人</a>
+
+                    <label for="order-display-restaurant">餐厅:</label>
+                    <input id="order-display-restaurant" type="text" disabled>
+                    <input name="restaurant" id="order-restaurant" value="" type="hidden">
+                    <a href="#select-restaurant" data-role="button">选餐厅</a>
+
+                    <div id="control-group-food">
+                    <label for="order-display-food">套餐:</label>
+                    <input id="order-display-food" value="" type="text" disabled>
+                    <input name="food" id="order-food" value="" type="hidden">
+                    <a href="#select-food" data-role="button">选套餐</a>
+                    </div>
+                    <input value="确认" data-theme="b" type="submit">
+                </form>
+            </div><!-- /content -->
+
+        </div><!-- /page -->
+
+        <div id="select-user" data-role="page" data-title="选人" data-add-back-btn="true">
+            <div data-role="header">
+                <h1>订餐</h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                <ul data-role="listview" data-inset="true">
+                    <script id="tmpl-users" type="text/template">
+                        <% _.each(data, function(user) { %>
+                            <li>
+                                <a href="#" data-rel="back" data-value="<%- user.name%>"><%- user.name%></a>
+                            </li>
+                        <% }); %>
+                    </script>
+                </ul>
+            </div><!-- /content -->
+        </div><!-- /page -->
+
+
+        <div id="select-restaurant" data-role="page" data-title="选餐厅" data-add-back-btn="true">
+            <div data-role="header">
+                <h1>选餐厅</h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                <ul data-role="listview" data-inset="true">
+                    <script id="tmpl-restaurants" type="text/template">
+                        <% _.each(data, function(restaurant) { %>
+                            <li>
+                                <a href="#" data-rel="back" data-value="<%- restaurant.name%>"><%- restaurant.name%></a>
+                            </li>
+                        <% }); %>
+                    </script>
+                </ul>
+            </div><!-- /content -->
+        </div><!-- /page -->
+
+        <div id="select-food" data-role="page" data-title="选套餐" data-add-back-btn="true">
+            <div data-role="header">
+                <h1>选套餐</h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                <script id="tmpl-foods" type="text/template">
+                    <% _.each(data, function(restaurant, key) { %>
+                        <ul data-role="listview" data-inset="true" data-restaurant="<%- key%>">
+                            <% _.each(restaurant, function(food) { %>
+                                <li>
+                                    <a href="#" data-rel="back" data-value="<%- food.name%>"><%- food.name%> <span class="ui-li-count">￥<%- food.price%></span></a>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    <% }); %>
+                </script>
+            </div><!-- /content -->
+        </div><!-- /page -->
+
+        <div data-role="dialog" id="dialog-invalid-form">
+            <div data-role="header">
+                <h2>订餐信息不完整</h2>
+            </div>
+            <div data-role="content">
+                <p>请分别选择订餐人、餐厅、套餐。</p>
+            </div>
+        </div>
+
+        <div data-role="dialog" id="dialog-success">
+            <div data-role="header">
+                <h2>订餐成功</h2>
+            </div>
+            <div data-role="content">
+                <p>关闭对话框继续订餐或<a href="list.html" data-ajax="false">查看订单</a></p>
+            </div>
+        </div>
+
+    </body>
+</html>
