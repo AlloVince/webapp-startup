@@ -1,0 +1,11 @@
+var restaurants = [
+    {
+        "name": "KFC"
+    },
+    {
+        "name": "7-11"
+    },
+    {
+        "name": "成都小吃"
+    }
+]

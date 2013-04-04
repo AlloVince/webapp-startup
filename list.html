@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>订餐</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css">
+        <script data-main="js/main" src="js/vendor/require-jquery.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="order-list" data-role="page" data-add-back-btn="true" data-back-btn-text="后退">
+
+            <div data-role="header">
+                <h1>订单</h1>
+                <a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">Home</a>
+            </div><!-- /header -->
+
+            <div data-role="content">
+                <ul id="order-listview" data-role="listview" data-inset="true">
+                <script id="tmpl-orders" type="text/template">
+                    <% if(ordered.length > 0) { %>
+                        <li data-role="list-divider"><%- ordered.length %>人已订</li>
+                    <% _.each(ordered, function(user) { %>
+                        <li>
+                            <h2><%- user.user%></h2>
+                            <p><%- user.restaurant%> <%- user.food%></p>
+                            <p class="ui-li-aside">
+                                <% if(user.price > 12) {%>
+                                    <span style="color:red">￥<%- user.price%></span>
+                                <% } else { %>
+                                ￥<%- user.price%>
+                                <% } %>
+                            </p>
+                        </li>
+                    <% }); %>
+                    <% } %>
+
+                    <% if(unorder.length > 0) { %>
+                        <li data-role="list-divider"><%- unorder.length %>人未订</li>
+                    <% _.each(unorder, function(user) { %>
+                        <li>
+                            <h2><%- user.user%></h2>
+                        </li>
+                    <% }); %>
+                    <% } %>
+                     <li data-role="list-divider" data-theme="a">
+                        <p><%- ordered.length %>人已订，<%- unorder.length %>人未订，总计<%- total%>元</p>
+                    </li>
+                </script>
+                </ul>
+
+                <a id="debug-clear" href="">Debug: 清除已存订单</a>
+            </div><!-- /content -->
+
+        </div><!-- /page -->
+
+    </body>
+</html>
